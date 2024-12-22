@@ -18,6 +18,9 @@ import java.util.List;
 public class ServiceAudit {
 
     @Id
+    @Column(name = "ID")
+    private long id;
+
     @Column(name = "SERVICE_AUDIT_ID", nullable = false, updatable = false)
     private String serviceAuditId;
     //= UUID.randomUUID().toString()
@@ -28,8 +31,11 @@ public class ServiceAudit {
     @Column(name = "ENDPOINT", nullable = false)
     private String endpoint;
 
-    @Column(name = "METHOD", nullable = false)
-    private String method;
+    @Column(name = "REQUEST_URI", nullable = false)
+    private String requestUri;
+
+    @Column(name = "REQUEST_METHOD", nullable = false)
+    private String requestMethod;
 
     @Lob
     @Column(name = "REQUEST_HEADERS")
@@ -39,8 +45,14 @@ public class ServiceAudit {
     @Column(name = "REQUEST_BODY")
     private String requestBody;
 
+    @Column(name = "RESPONSE_HEADERS", nullable = false)
+    private String responseHeaders;
+
     @Column(name = "REQUEST_TIMESTAMP", nullable = false)
     private LocalDateTime requestTimestamp;
+
+    @Column(name = "RESPONSE_TIMESTAMP", nullable = false)
+    private LocalDateTime responseTimestamp;
 
     @Column(name = "RESPONSE_STATUS")
     private Integer responseStatus;
@@ -49,9 +61,13 @@ public class ServiceAudit {
     @Column(name = "RESPONSE_BODY")
     private String responseBody;
 
-    @Column(name = "DURATION_MILLIS")
-    private Integer durationMillis;
+    @Column(name = "DURATION")
+    private Long duration;
+
+    @Column(name = "ERROR_MESSAGE")
+    private String errorMessage;
 
     @OneToMany(mappedBy = "serviceAudit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClientAudit> clientAudits;
+
 }
