@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "SERVICE_AUDIT")
@@ -18,18 +17,15 @@ import java.util.List;
 public class ServiceAudit {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
-
-    @Column(name = "SERVICE_AUDIT_ID", nullable = false, updatable = false)
-    private String serviceAuditId;
-    //= UUID.randomUUID().toString()
+    private Long id;
 
     @Column(name = "SERVICE_NAME", nullable = false)
     private String serviceName;
 
-    @Column(name = "ENDPOINT", nullable = false)
-    private String endpoint;
+    @Column(name = "HOST_NAME", nullable = false)
+    private String hostName;
 
     @Column(name = "REQUEST_URI", nullable = false)
     private String requestUri;
@@ -38,28 +34,25 @@ public class ServiceAudit {
     private String requestMethod;
 
     @Lob
-    @Column(name = "REQUEST_HEADERS")
+    @Column(name = "REQUEST_HEADERS",nullable = true)
     private String requestHeaders;
 
     @Lob
-    @Column(name = "REQUEST_BODY")
+    @Column(name = "REQUEST_BODY",nullable = true)
     private String requestBody;
 
-    @Column(name = "RESPONSE_HEADERS", nullable = false)
-    private String responseHeaders;
-
-    @Column(name = "REQUEST_TIMESTAMP", nullable = false)
+    @Column(name = "REQUEST_TIMESTAMP", nullable = true)
     private LocalDateTime requestTimestamp;
 
-    @Column(name = "RESPONSE_TIMESTAMP", nullable = false)
+    @Column(name = "RESPONSE_TIMESTAMP", nullable = true)
     private LocalDateTime responseTimestamp;
 
     @Column(name = "RESPONSE_STATUS")
     private Integer responseStatus;
 
     @Lob
-    @Column(name = "RESPONSE_BODY")
-    private String responseBody;
+    @Column(name = "RESPONSE",nullable = true)
+    private String response;
 
     @Column(name = "DURATION")
     private Long duration;
@@ -67,7 +60,7 @@ public class ServiceAudit {
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
 
-    @OneToMany(mappedBy = "serviceAudit", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ClientAudit> clientAudits;
+    //@OneToMany(mappedBy = "serviceAudit", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<ClientAudit> clientAudits;
 
 }
